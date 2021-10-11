@@ -7,9 +7,9 @@ I.	Mini Project2 Period
 	6 Person/per team
 
 i.	Back-end
-•	이병관 : Planning structure, setting
-•	안선호
-•	홍성현 : Planning idea & concept, 
+•	이병관 : Structural planning and planning of setting work 
+•	안선호 : Working on the main function
+•	홍성현 : Plan ideas and materialize concepts
 
 
 
