@@ -5,10 +5,14 @@ purpose: 왜 이 주제를 선택했는가?
 1. Mini Project2 Period
   - October 11/2021 9am ~ October 16/2021 6pm
   - 6 Person/per team
+
+
   Back-end
   1. 이병관
   2. 안선호
   3. 홍성현
+  
+  
   Front-end
   4. 이미다
   5. 석지선
