@@ -17,8 +17,15 @@ purpose: 왜 이 주제를 선택했는가?
 2. Used Techniques
 
 Parts of Backend
+- Axios
+- mysql?
 
 Parts of Frontend
+- Axios
+
+Parts of Database
+- MongoDB
+- Axios
 
 4. Image of project
 5. Main function
