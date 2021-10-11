@@ -30,6 +30,11 @@ III.	Parts of Backend
 
 IV.	Parts of Frontend
 §	Axios
+§  Redux
+§  Redux-actions
+§  Redux-Thunk
+§  Immer
+
 
 V.	Parts of Database
 §	MongoDB
