@@ -5,7 +5,7 @@ const User = require('../schemas/user');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-userRouter.get('/register', async(req, res) => {
+userRouter.post('/register', async(req, res) => {
   const {userEmail, userNickname} = req.body;
   let {userPassword} = req.body;
   const existNickname = await User.find({userNickname});
