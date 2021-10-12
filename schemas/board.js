@@ -11,10 +11,10 @@ const boardSchema = new mongoose.Schema({
     postingTag: String,
     postingDel: Number,
 });
-ReplySchema.virtual("postID").get(function () {
+boardSchema.virtual("postID").get(function () {
     return this._id.toHexString();
 });
-ReplySchema.set("toJSON", {
+boardSchema.set("toJSON", {
     virtuals: true,
 });
 module.exports = mongoose.model("board", boardSchema);
