@@ -1,5 +1,7 @@
 # halohalloween_Backend
+
 MiniProject2
+
 purpose: 왜 이 주제를 선택했는가? 
 
 The idea was organized to know information about the upcoming Halloween event in October and to approach it familiarly. It has attached a feature that allows you to upload images or videos of how you spent your own Halloween uniquely, and will also update other functions later.
@@ -10,12 +12,11 @@ I.	Mini Project2 Period
 	October 11/2021 9am ~ October 16/2021 6pm
 	6 Person/per team
 
+
 i.	Back-end
-•	이병관 : Structural planning and planning of setting work 
+•	이병관 : Structural planning and planning of setting work, userSchema, router, .env, server connection, 
 •	안선호 : Working on the main function
-•	홍성현 : Plan ideas and materialize concepts
-
-
+•	홍성현 : Plan ideas and materialize concepts, postingSchema, replySchema, readme
 
 
 ii.	Front-end
@@ -25,35 +26,27 @@ ii.	Front-end
 
 
 
-
 II.	Used Techniques
 
 III.	Parts of Backend
-§	Axios
+	Axios
 
 
 IV.	Parts of Frontend
-§	Axios
-§  Redux
-§  Redux-actions
-§  Redux-Thunk
-§  Immer
 
+	Axios 
+	Redux 
+	Redux-actions 
+	Redux-Thunk 
+	Immer
 
 V.	Parts of Database
-§	MongoDB
-§	Axios
-§	Sessions
-§  Cookies
+	MongoDB
+	Axios
+	Sessions
+  Cookies
 
 
 VI.	Image of project
 VII.	Main function
 VIII.	Summarized problem and solution
-
-
-
-
-
-
-   
