@@ -6,18 +6,25 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 userRouter.get('/register', async(req, res) => {
-  const {userNickname} = req.body;
+  const {userEmail, userNickname} = req.body;
   let {userPassword} = req.body;
-  const existUsers = await User.find({userNickname});
-  if(existUsers.length){
+  const existNickname = await User.find({userNickname});
+  const existEmail = await User.find({userEmail});
+  if(existEmail.length){
+    res.status(400).send({
+      errorMessage: '이미 이메일이 존재합니다.'
+    });
+    return;
+  }
+  if(existNickname.length){
     res.status(400).send({
       errorMessage: '이미 동일한 닉네임이 존재합니다.'
     });
     return;
   }
-  const encryptedPassowrd = bcrypt.hashSync(password, 10);
-  password = encryptedPassowrd;
-  const user = new User({nickname, password});
+  const encryptedPassowrd = bcrypt.hashSync(userPassword, 10);
+  userPassword = encryptedPassowrd;
+  const user = new User({userEmail, userNickname, userPassword});
   await user.save();
 
   res.status(201).send({
@@ -26,8 +33,8 @@ userRouter.get('/register', async(req, res) => {
 });
 
 userRouter.post('/auth' , async(req, res) => {
-  const {userNickname, userPassword} = req.body;
-  const user = await User.findOne({nickname}).exec();
+  const {userEmail, userPassword} = req.body;
+  const user = await User.findOne({userEmail}).exec();
 
   if(!user){
     res.status(400).send({
@@ -36,11 +43,12 @@ userRouter.post('/auth' , async(req, res) => {
     return;
   }
 
-  bcrypt.compare(password, user['password'], function(err, msg){
+  bcrypt.compare(userPassword, user['userPassword'], function(err, msg){
     if(msg === true){
-      const token = jwt.sign({ userId: user.userId }, process.env.TOKEN_KEY);
+      const token = jwt.sign({ userID: user.userID }, process.env.TOKEN_KEY);
       res.send({
         token,
+        Message: '로그인 완료'
       })
     }
 
