@@ -1,17 +1,18 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-const port = 3000;
+const port = process.env.PORT;
 const userRouter = require('./routers/userRouter');
-
-// CORS 처리
+const connect = require('./schemas');
+// CORS 
 const cors = require('cors');
 app.use(cors());
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use('/',[userRouter]);
+app.use(express.urlencoded({ extended: true }));
+connect();
+app.use('/user',[userRouter]);
 
 app.listen(port, () => {
-	console.log(`Server start at http://localhost:${port}`);
+	console.log(`Server On http://localhost:${port}`);
 });
