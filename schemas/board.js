@@ -11,7 +11,7 @@ const boardSchema = new mongoose.Schema({
     postingTag: String,
     postingDel: Number,
 });
-boardSchema.virtual("postID").get(function () {
+boardSchema.virtual("postID").get(function() {
     return this._id.toHexString();
 });
 boardSchema.set("toJSON", {

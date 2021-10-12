@@ -16,5 +16,5 @@ app.use('/user', [userRouter]);
 app.use('/post', [postRouter]);
 
 app.listen(port, () => {
-	console.log(`Server On http://localhost:${port}`);
+    console.log(`Server On http://localhost:${port}`);
 });
