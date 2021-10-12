@@ -5,16 +5,15 @@ require('dotenv').config();
 module.exports = (req, res, next) => {
    try {
       const { authorization } = req.headers;
-      const [tokenType, tokenValue] = authorization.split(" ");
-
+      const [tokenType, tokenValue] = authorization.split(' ');
       if (tokenType !== 'Bearer') {
-         res.status(400).send({
-            err: "로그인 후 이용 가능한 기능입니다.",
+         res.status(401).send({
+            errorMessage: "로그인 후 이용 가능한 기능입니다.",
          });
          return;
       }
       const { userID } = jwt.verify(tokenValue, process.env.TOKEN_KEY);
-      User.findOne({ userID: userID }).then((user) => {
+      User.findById( userID ).then((user) => {
          res.locals.user = user;
          next();
       });
