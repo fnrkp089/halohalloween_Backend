@@ -48,7 +48,7 @@ userRouter.post('/auth' , async(req, res) => {
       const token = jwt.sign({ userID: user.userID }, process.env.TOKEN_KEY);
       res.send({
         token,
-        Message: '로그인 완료'
+        Message: '해시값과 비밀번호 동일, 로그인 완료'
       })
     }
 
