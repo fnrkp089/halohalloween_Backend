@@ -28,10 +28,9 @@ Router.get('/reply/:postID', async(req, res) => {
 
 Router.patch('/reply/replyDelete', authMiddleWare, async(req, res) => {
     const { replyID } = req.body;
-    const { replyDel } = req.body;
-    await Reply.updateOne({ replyID } {
+    await Reply.updateOne({ replyID }, {
         $set: {
-            replyDel: replyDel,
+            replyDel: 0,
         },
     });
     res.status(201).send({ result: 'success' });
@@ -41,7 +40,7 @@ Router.patch('reply/replyModify', authMiddleWare, async(req, res) => {
     const { replyID, replyComment } = req.body
     await Reply.updateOne({ replyID }, {
         $set: {
-            replyComment: replyComment,
+           replyComment
         },
     });
     res.status(201).send({ result: 'success' });
