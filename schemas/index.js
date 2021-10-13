@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 
 const connect = () => {
-  mongoose
+    mongoose
     .connect(process.env.MONGO_URL, {
-      useNewUrlParser: true,
-      ignoreUndefined: true,
-      user: process.env.DBUSER,
-      pass: process.env.DBPASS
+        useNewUrlParser: true,
+        ignoreUndefined: true,
+        user: process.env.DBUSER,
+        pass: process.env.DBPASS
     })
     .catch(err => console.log(err));
 };

@@ -4,6 +4,7 @@ require('dotenv').config();
 const port = process.env.PORT;
 const userRouter = require('./routers/userRouter');
 const postRouter = require('./routers/postRouter');
+const replyRouter = require('./routers/replyRouter');
 const connect = require('./schemas');
 // CORS 
 const cors = require('cors');
@@ -14,7 +15,9 @@ app.use(express.urlencoded({ extended: true }));
 connect();
 app.use('/user', [userRouter]);
 app.use('/post', [postRouter]);
+app.use('/reply', [replyRouter]);
+
 
 app.listen(port, () => {
-	console.log(`Server On http://localhost:${port}`);
+    console.log(`Server On http://localhost:${port}`);
 });
