@@ -6,7 +6,7 @@ const replySchema = new mongoose.Schema({
     replyComment: String,
     replyDel: Number,
 });
-replySchema.virtual("replyID").get(function () {
+replySchema.virtual("replyID").get(function() {
     return this._id.toHexString();
 });
 replySchema.set("toJSON", {
