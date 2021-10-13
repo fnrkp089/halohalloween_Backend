@@ -3,6 +3,8 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../schemas/user');
 const jwt = require('jsonwebtoken');
+const authMiddleWare = require('../middlewares/auth-middleware');
+
 require('dotenv').config();
 
 userRouter.post('/register', async(req, res) => {
@@ -38,7 +40,7 @@ userRouter.post('/auth', async(req, res) => {
 
     if (!user) {
         res.status(400).send({
-            errorMessage: '이메일 또는 패스워드가 잘못되었습니다'
+            errorMessage: '이메일 또는 패스워드가 잘못되었습니다.'
         })
         return;
     }
@@ -49,7 +51,7 @@ userRouter.post('/auth', async(req, res) => {
             res.send({
                 token,
                 userNickname: user.userNickname,
-                Message: '해시값과 비밀번호 동일, 로그인 완료'
+                Message: '해시값과 비밀번호 동일, 로그인 완료!'
             })
         } else {
             res.status(400).send({
@@ -58,6 +60,24 @@ userRouter.post('/auth', async(req, res) => {
             return;
         }
     })
+})
+
+userRouter.post('/chkLogin', authMiddleWare, async(req, res) => {
+    try {
+        const { userNickname, userEmail } = res.locals.user; //미들웨어에서 res.locals.user로 넘겨준 것
+        
+        res.status(201).send({
+            user : {userNickname, userEmail}, //user  닉네임이랑 이메일을 객체를 보낸것
+            //await user = User.findByItem({key:value})
+            Message: '로그인 확인 성공하였습니다.'
+        })
+        return;
+    } catch (err) {
+        res.status(400).send ({
+            errorMessage: '닉네임 혹은 이메일 다시 한번 확인해주세요'
+        })
+        return;
+    }
 })
 
 module.exports = userRouter;
