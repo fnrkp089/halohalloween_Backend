@@ -21,7 +21,7 @@ Router.get('/inspect/:postID', async(req, res) => {
 Router.get('/postlist', async(req, res) => {
   try {
     const postList = await Board.find({}).sort("-date");
-    res.status(201).send({ postList : postList });
+    res.status(201).json({ postList : postList });
   } catch (err) {
     res.status(500).send({
       errorMessage: 'Not found the content anymore'
@@ -48,11 +48,21 @@ Router.post('/posting', authMiddleWare, async(req, res) => {
 })
 
 //게시글 수정 API
-Router.patch("//", async (req, res) => {
-
-})
+Router.patch("/postModify", async (req, res, next) => {
+  try {
+    const { postID ,postingTitle, postingComment, postingUpdate } = req.body;
+      await Board.updateOne({_id: postID},{ postingTitle, postingComment, postingUpdate });
+      res.status(200).send({ message: '게시글 수정 완료!' });
+  } catch (err) {
+    res.status(500).send({ errorMessage: '게시글 수정 실패!, 관리자에 문의해주세요'})
+  } //error found
+});
 //게시글 삭제 API
-Router.delete("//", async(req, res) => {
-
+Router.delete("/postDelete", async(req, res) => {
+  const { postID } = req.body;
+  await Board.updateOne({_id: postID},{$set : {showing: 0}});
+  res.send({ 
+    Message: "삭제에 성공했습니다." 
+  });
 })
 module.exports = Router;
