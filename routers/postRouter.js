@@ -5,7 +5,7 @@ const authMiddleWare = require("../middlewares/auth-middleware");
 
 //게시글 상세페이지 API
 Router.get('/inspect/:postID', async(req, res) => {
-  const {postID} = req.body;
+  const { postID } = req.body;
 
   try {
     const postingList = await Board.findById({postID});
@@ -20,7 +20,7 @@ Router.get('/inspect/:postID', async(req, res) => {
 //게시물 불러오기 API
 Router.get('/postlist', async(req, res) => {
   try {
-    const postList = await Board.find({}).sort("-date");
+    const postList = await Board.find({postingDel: 1}).sort("-date");
     res.status(201).json({ postList : postList });
   } catch (err) {
     res.status(500).send({
@@ -57,10 +57,11 @@ Router.patch("/postModify", async (req, res, next) => {
     res.status(500).send({ errorMessage: '게시글 수정 실패!, 관리자에 문의해주세요'})
   } //error found
 });
+
 //게시글 삭제 API
 Router.delete("/postDelete", async(req, res) => {
   const { postID } = req.body;
-  await Board.updateOne({_id: postID},{$set : {showing: 0}});
+  await Board.updateOne({_id: postID},{$set : {postingDel: 0}});
   res.send({ 
     Message: "삭제에 성공했습니다." 
   });
