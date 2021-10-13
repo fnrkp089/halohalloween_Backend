@@ -3,7 +3,7 @@ const authMiddleWare = require('../middlewares/auth-middleware');
 const Reply = require('../schemas/reply');
 const Router = express.Router();
 
-Router.post('/reply/replyPost', authMiddleWare, async(req, res) => {
+Router.post('/replyPost', authMiddleWare, async(req, res) => {
     const { user } = res.locals
     try {
         const { postID, replyComment, replyDel } = req.body;
@@ -15,7 +15,7 @@ Router.post('/reply/replyPost', authMiddleWare, async(req, res) => {
     }
 });
 
-Router.get('/reply/:postID', async(req, res) => {
+Router.get('/replyinspect/:postID', async(req, res) => {
     try {
         const { postID } = req.body;
         const Replies = await Reply.find({ postID });
@@ -26,7 +26,7 @@ Router.get('/reply/:postID', async(req, res) => {
     }
 });
 
-Router.patch('/reply/replyDelete', authMiddleWare, async(req, res) => {
+Router.patch('/replyDelete', authMiddleWare, async(req, res) => {
     const { replyID } = req.body;
     await Reply.updateOne({ replyID }, {
         $set: {
@@ -36,7 +36,7 @@ Router.patch('/reply/replyDelete', authMiddleWare, async(req, res) => {
     res.status(201).send({ result: 'success' });
 });
 
-Router.patch('reply/replyModify', authMiddleWare, async(req, res) => {
+Router.patch('/replyModify', authMiddleWare, async(req, res) => {
     const { replyID, replyComment } = req.body
     await Reply.updateOne({ replyID }, {
         $set: {
