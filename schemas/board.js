@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const boardSchema = new mongoose.Schema({
   postingTitle: String,
+  postingEmail: String,
   postingAuthor: String,
   postingDate: String,
   postingUpdate: String,
