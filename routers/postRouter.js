@@ -8,7 +8,7 @@ Router.get('/inspect/:postID', async(req, res) => {
   const { postID } = req.body;
 
   try {
-    const postingList = await Board.findById({postID});
+    const postingList = await Board.findById(postID);
     res.json({ postingList: postingList })
   } catch (err) {
     res.status(500).send({
@@ -30,7 +30,6 @@ Router.get('/postlist', async(req, res) => {
 })
 
 //게시글 등록 API
-
 Router.post('/posting', authMiddleWare, async(req, res) => {
   const {user} = res.locals
   const { postingTitle, postingDate, postingComment, postingImgUrl, postingDel } = req.body;
@@ -50,8 +49,8 @@ Router.post('/posting', authMiddleWare, async(req, res) => {
 //게시글 수정 API
 Router.patch("/postModify", async (req, res, next) => {
   try {
-    const { postID ,postingTitle, postingComment, postingUpdate } = req.body;
-      await Board.updateOne({_id: postID},{ postingTitle, postingComment, postingUpdate });
+    const { postID, postingAuthor, postingTitle, postingComment, postingUpdate } = req.body;
+      await Board.updateOne({_id: postID},{$set: { postingTitle, postingAuthor, postingComment, postingUpdate}});
       res.status(200).send({ message: '게시글 수정이 완료되었습니다!' });
   } catch (err) {
     res.status(500).send({ errorMessage: '게시글 수정 실패!, 관리자에 문의해주세요'})
@@ -59,7 +58,7 @@ Router.patch("/postModify", async (req, res, next) => {
 });
 
 //게시글 삭제 API
-Router.delete("/postDelete", async(req, res) => {
+Router.patch("/postDelete", async(req, res) => {
   const { postID } = req.body;
   await Board.updateOne({_id: postID},{$set : {postingDel: 0}});
   res.send({ 

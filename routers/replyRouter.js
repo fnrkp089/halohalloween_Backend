@@ -3,25 +3,24 @@ const authMiddleWare = require('../middlewares/auth-middleware');
 const Reply = require('../schemas/reply');
 const Router = express.Router();
 
-Router.post('/replyPost', authMiddleWare, async(req, res) => {
-    const { user } = res.locals
+Router.get('/replyList', async(req, res) => {
     try {
-        const { postID, replyComment, replyDel } = req.body;
-        const reply = new Reply({ postID, replyNickname: user.userNickname, replyComment, replyDel });
-        await reply.save();
-        res.status(201).send({ result: 'success' });
-    } catch (error) {
+        const { postID } = req.body;
+        const Replies = await Reply.find({postID : postID});
+        res.status(200).json({ Replies: Replies });
+    } catch (err) {
         console.error(err);
     }
 });
 
-Router.get('/replyinspect/:postID', async(req, res) => {
+Router.post('/replyPost', authMiddleWare, async(req, res) => {
+    const { user } = res.locals
     try {
-        const { postID } = req.body;
-        const Replies = await Reply.find({ postID });
-        res.json({ Replies: Replies });
-        res.status(200).send({ result: 'success' });
-    } catch (err) {
+        const { postID, replyComment } = req.body;
+        const reply = new Reply({ postID, replyNickname: user.userNickname, replyComment, replyDel: 1 });
+        await reply.save();
+        res.status(201).send({ result: 'success' });
+    } catch (error) {
         console.error(err);
     }
 });

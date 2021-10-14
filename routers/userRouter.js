@@ -50,7 +50,6 @@ userRouter.post('/auth', async(req, res) => {
             const token = jwt.sign({ userID: user.userID }, process.env.TOKEN_KEY);
             res.send({
                 token,
-                userNickname: user.userNickname,
                 Message: '해시값과 비밀번호 동일, 로그인 완료!'
             })
         } else {
@@ -62,22 +61,24 @@ userRouter.post('/auth', async(req, res) => {
     })
 })
 
-userRouter.post('/chkLogin', authMiddleWare, async(req, res) => {
-    try {
-        const { userNickname, userEmail } = res.locals.user; //미들웨어에서 res.locals.user로 넘겨준 것
-        
-        res.status(201).send({
-            user : {userNickname, userEmail}, //user  닉네임이랑 이메일을 객체를 보낸것
-            //await user = User.findByItem({key:value})
-            Message: '로그인 확인 성공하였습니다.'
-        })
-        return;
-    } catch (err) {
-        res.status(400).send ({
-            errorMessage: '닉네임 혹은 이메일 다시 한번 확인해주세요'
-        })
-        return;
-    }
+//로그인 체크 부분
+userRouter.get('/chkLogin', authMiddleWare, async(req, res) => {
+	try {
+			const {user} = res.locals; 
+			
+			res.status(201).send({
+					user : {
+						userNickname: user.userNickname, 
+						userEmail: user.userEmail
+					}, 
+					Message: '로그인 확인 성공하였습니다.'
+			})
+			return;
+	} catch (err) {
+			res.status(400).send ({
+					errorMessage: '닉네임 혹은 이메일 다시 한번 확인해주세요'
+			})
+			return;
+	}
 })
-
 module.exports = userRouter;
