@@ -50,8 +50,8 @@ Router.post('/posting', authMiddleWare, async(req, res) => {
 //게시글 수정 API
 Router.patch("/postModify", async (req, res, next) => {
   try {
-    const { postID ,postingTitle, postingComment, postingUpdate } = req.body;
-      await Board.updateOne({_id: postID},{ postingTitle, postingComment, postingUpdate });
+    const { postID, postingAuthor, postingTitle, postingComment, postingUpdate } = req.body;
+      await Board.updateOne({_id: postID},{$set: { postingTitle, postingAuthor, postingComment, postingUpdate}});
       res.status(200).send({ message: '게시글 수정이 완료되었습니다!' });
   } catch (err) {
     res.status(500).send({ errorMessage: '게시글 수정 실패!, 관리자에 문의해주세요'})
