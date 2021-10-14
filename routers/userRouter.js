@@ -3,13 +3,22 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../schemas/user');
 const jwt = require('jsonwebtoken');
+const Joi = require("joi");
 require('dotenv').config();
 
+const joiUser = Joi.object({
+    userEmail: Joi.array().items(Joi.string().email({ minDomainSegments: 2 })).unique().required(),
+    userNickname: Joi.array().items(Joi.string()).required().unique(),
+    userPassword: Joi.array().items(Joi.string()).required().unique(),
+});
+
 userRouter.post('/register', async(req, res) => {
-    const { userEmail, userNickname } = req.body;
-    let { userPassword } = req.body;
+    const { userEmail, userNickname } = joiUser.validateAsync(req.body);
+
+    let { userPassword } = joiUser.validateAsync(req.body);
     const existNickname = await User.find({ userNickname });
     const existEmail = await User.find({ userEmail });
+
     if (existEmail.length) {
         res.status(400).send({
             errorMessage: '이미 이메일이 존재합니다.'

@@ -4,7 +4,6 @@ require('dotenv').config();
 const port = process.env.PORT;
 const userRouter = require('./routers/userRouter');
 const postRouter = require('./routers/postRouter');
-const replyRouter = require('./routers/replyRouter');
 const connect = require('./schemas');
 // CORS 
 const cors = require('cors');
