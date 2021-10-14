@@ -7,7 +7,6 @@ Router.get('/replyList', async(req, res) => {
     try {
         const { postID } = req.body;
         const Replies = await Reply.findAll(postID);
-        res.json({ Replies: Replies });
         res.status(200).send({ result: 'success' });
     } catch (err) {
         console.error(err);
