@@ -59,7 +59,7 @@ Router.patch("/postModify", async (req, res, next) => {
 });
 
 //게시글 삭제 API
-Router.delete("/postDelete", async(req, res) => {
+Router.patch("/postDelete", async(req, res) => {
   const { postID } = req.body;
   await Board.updateOne({_id: postID},{$set : {postingDel: 0}});
   res.send({ 

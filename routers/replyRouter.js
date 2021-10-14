@@ -6,7 +6,7 @@ const Router = express.Router();
 Router.get('/replyList', async(req, res) => {
     try {
         const { postID } = req.body;
-        const Replies = await Reply.findAll(postID);
+        const Replies = await Reply.find({postID : postID});
         res.json({ Replies: Replies });
         res.status(200).send({ result: 'success' });
     } catch (err) {
