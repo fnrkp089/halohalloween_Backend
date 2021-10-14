@@ -62,7 +62,7 @@ userRouter.post('/auth', async(req, res) => {
     })
 })
 
-userRouter.post('/chkLogin', authMiddleWare, async(req, res) => {
+userRouter.get('/chkLogin', authMiddleWare, async(req, res) => {
     try {
         const {user} = res.locals; //미들웨어에서 res.locals.user로 넘겨준 것
         
