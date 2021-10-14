@@ -8,7 +8,7 @@ Router.get('/inspect/:postID', async(req, res) => {
   const { postID } = req.body;
 
   try {
-    const postingList = await Board.findById({postID});
+    const postingList = await Board.findById(postID);
     res.json({ postingList: postingList })
   } catch (err) {
     res.status(500).send({
