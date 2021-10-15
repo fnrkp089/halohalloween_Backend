@@ -7,6 +7,7 @@ const authMiddleWare = require('../middlewares/auth-middleware');
 
 require('dotenv').config();
 
+//회원가입
 userRouter.post('/register', async(req, res) => {
     const { userEmail, userNickname } = req.body;
     let { userPassword } = req.body;
