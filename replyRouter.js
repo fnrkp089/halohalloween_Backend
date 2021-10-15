@@ -8,7 +8,6 @@ Router.get('/replyList/:postID', async(req, res) => {
         const { postID } = req.params;
         const Replies = await Reply.find({postID : postID});
         res.status(200).json({ Replies: Replies });
-        console.log(Replies);
     } catch (err) {
         console.error(err);
     }

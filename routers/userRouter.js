@@ -44,7 +44,7 @@ userRouter.post('/auth', async(req, res) => {
         })
         return;
     }
-
+     
     bcrypt.compare(userPassword, user['userPassword'], function(err, msg) {
         if (msg === true) {
             const token = jwt.sign({ userID: user.userID }, process.env.TOKEN_KEY);

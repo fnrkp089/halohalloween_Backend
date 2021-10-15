@@ -10,6 +10,7 @@ const boardSchema = new mongoose.Schema({
   postingImgUrl: String,
   postingVideoUrl: String,
   postingTag: String,
+  postingSeen: Number,
   postingDel: Number,
 });
 boardSchema.virtual("postID").get(function() {
