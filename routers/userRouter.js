@@ -12,7 +12,7 @@ const joiUser = Joi.object({
     userPassword: Joi.array().items(Joi.string()).required().unique(),
 });
 
-userRouter.post('/register', async(req, res) => {
+userRouter.post('/register', 어스미들웨어, 일치하는지 아닌지 미들웨어, async(req, res) => {
     const { userEmail, userNickname } = joiUser.validateAsync(req.body);
 
     let { userPassword } = joiUser.validateAsync(req.body);
