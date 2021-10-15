@@ -65,6 +65,234 @@ paths:
           description: 성공
         '500':
           description: 실패
+############
+#replyRouter
+  /reply/replyList/{postID}:
+    get:
+      security: 
+        - bearerAuth: []
+      summary: 댓글 조회
+      parameters: 
+        - in: path 
+          name: postID 
+          schema: 
+            type: string
+      responses:
+        '200':
+          description: Okay
+        '201':
+          description: 성공
+        '400':
+          description: 잘못된 데이터
+        '500':
+          description: 서버 에러
+  /reply/replyPost:
+    post:
+      security: 
+        - bearerAuth: []
+      summary: 댓글 등록
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postID:
+                  type: string
+                replyNickname:
+                  type: string
+                replyComment:
+                  type: string
+      responses:
+        '201':
+          description: 성공
+        '400':
+          description: 잘못된 데이터
+        '500':
+          description: 서버 에러
+  /reply/replyDelete:
+    patch:
+      security: 
+        - bearerAuth: []
+      summary: 댓글 삭제
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                replyID:
+                  type: string
+      responses:
+        '201':
+          description: 성공
+        '400':
+          description: 잘못된 데이터
+        '500':
+          description: 서버 에러
+  /reply/replyModify:
+    patch:
+      security: 
+        - bearerAuth: []
+      summary: 댓글 수정
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                replyID:
+                  type: string
+                replyComment:
+                  type: string
+      responses:
+        '201':
+          description: 성공
+        '400':
+          description: 잘못된 데이터
+        '500':
+          description: 서버 에러
+###########################
+#POST_ROUTER
+  /post/inspect/{postID}:
+    get:
+      security: 
+        - bearerAuth: []
+      parameters: 
+        - in: path 
+          name: postID 
+          schema: 
+          type: string
+      summary: 게시글 띄워주기(상세페이지)
+      responses:
+        '200':
+          description: Okay
+        '201':
+          description: 성공
+        '400':
+          description: 해당 데이터 존재하지 않음
+        '500':
+          description: 서버 에러
+  /post/postlist:
+    get:
+      security: 
+        - bearerAuth: []
+      summary: 게시물 포스팅 날짜대로 불러오기
+      responses:
+        '201':
+          description: 성공
+        '400':
+          description: 해당 데이터 존재하지 않음
+        '500':
+          description: 서버 에러
+  /post/postBest:
+    get:
+      security: 
+        - bearerAuth: []
+      summary: 게시물 4가지 불러오기
+      responses:
+        '201':
+          description: 성공
+        '400':
+          description: 해당 데이터 존재하지 않음
+        '500':
+          description: 서버 에러
+  /post/posting:
+    post:
+      security: 
+        - bearerAuth: []
+      summary: 게시글 등록하기
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postingTitle:
+                  type: string
+                postingDate:
+                  type: string
+                postingComment:
+                  type: string
+                postingImgUrl:
+                  type: string
+                postingDel:
+                  type: number
+      responses:
+        '201':
+          description: 성공
+        '400':
+          description: 잘못된 데이터
+        '500':
+          description: 서버 에러
+  /post/postModify:
+    patch:
+      security: 
+        - bearerAuth: []
+      summary: 게시글 수정하기
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postID:
+                  type: string
+                postingAuthor:
+                  type: string
+                postingTitle:
+                  type: string
+                postingComment:
+                  type: string
+                postingUpdate:
+                  type: string
+      responses:
+        '201':
+          description: 성공
+        '400':
+          description: 잘못된 데이터
+        '500':
+          description: 서버 에러
+  /post/postDelete:
+    patch:
+      security: 
+        - bearerAuth: []
+      summary: 게시글 삭제하기
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postID:
+                  type: string
+      responses:
+        '201':
+          description: 성공
+        '404':
+          description: 게시글 삭제
+        '500':
+          description: 서버 에러
+  /post/postClick:
+    patch:
+      security: 
+        - bearerAuth: []
+      summary: 게시글 조회수 증가
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postID:
+                  type: string
+      responses:
+        '201':
+          description: 성공
+        '400':
+          description: 해당 데이터 존재하지 않음
+        '500':
+          description: 서버 에러
 #로그인 인증해주는 component
 components: 
   securitySchemes: 
@@ -72,28 +300,3 @@ components:
       type: http 
       scheme: bearer 
       bearerFormat: JWT
-#replyRouter
-  /user/replyList:
-    post:
-      summary: 댓글 조회
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                userNickname:
-                  type: string
-                userEmail:
-                  type: string
-                userPassword:
-                  type: string
-              example: #sample object
-                userNickname: test1
-                userEmail: admin@test1.com
-                userPassword: test1
-      responses:
-        '201':
-          description: 성공
-        '500':
-          description: 실패
