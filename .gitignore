@@ -105,3 +105,6 @@ dist
 
 # Secret DB file
 .env
+
+#Secret Amazon File
+awsconfig.json
