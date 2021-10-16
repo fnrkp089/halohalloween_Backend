@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
             next();
         });
     } catch (error) {
-        res.json({
+        res.status(400).json({
             Message: '토큰에러, 토근 확인 요망'
         });
         return;

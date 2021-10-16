@@ -6,7 +6,7 @@ const Router = express.Router();
 Router.get('/replyList/:postID', async(req, res) => {
     try {
         const { postID } = req.params;
-        const Replies = await Reply.find({postID : postID});
+        const Replies = await Reply.find({postID : postID, replyDel: 1});
         res.status(200).json({ Replies: Replies });
         console.log(Replies);
     } catch (err) {
@@ -20,7 +20,8 @@ Router.post('/replyPost', authMiddleWare, async(req, res) => {
         const { postID, replyNickname, replyComment } = req.body;
         const reply = new Reply({ postID, replyNickname, replyComment, replyDel: 1 });
         await reply.save();
-        res.status(201).send({ result: 'success' });
+        const replyOne = await Reply.findOne({postID: postID}).sort({'_id': -1});
+        res.status(201).json({ result: replyOne });
     } catch (error) {
         console.error(err);
     }
@@ -28,7 +29,7 @@ Router.post('/replyPost', authMiddleWare, async(req, res) => {
 
 Router.patch('/replyDelete', authMiddleWare, async(req, res) => {
     const { replyID } = req.body;
-    await Reply.updateOne({ replyID }, {
+    await Reply.updateOne({ _id: replyID }, {
         $set: {
             replyDel: 0,
         },

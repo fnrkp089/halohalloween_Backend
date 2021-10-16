@@ -5,7 +5,7 @@ const authMiddleWare = require("../middlewares/auth-middleware");
 
 //게시글 상세페이지 API
 Router.get('/inspect/:postID', async(req, res) => {
-  const { postID } = req.body;
+  const { postID } = req.params;
 
   try {
     const postingList = await Board.findById(postID);
@@ -29,10 +29,10 @@ Router.get('/postlist', async(req, res) => {
   }
 })
 
-//게시물 불러오기 API
+//베스트 게시물 불러오기 API
 Router.get('/postBest', async(req, res) => {
   try {
-    const postList = await Board.find().sort("-postingSeen").limit(4);
+    const postList = await Board.find({postingDel: 1}).sort({"postingSeen": -1}).limit(4);
     res.status(201).json({ postList : postList });
   } catch (err) {
     res.status(400).send({
@@ -49,10 +49,12 @@ Router.post('/posting', authMiddleWare, async(req, res) => {
   try {
     const posting = new Board({postingTitle, postingEmail:user.userEmail ,postingAuthor: user.userNickname, 
       postingDate, postingComment, postingImgUrl, postingSeen:0,
-      postingDel})
-    await posting.save();
-    res.status(201).send({ 
-      message: "게시글 등록을 완료했습니다."
+      postingDel});
+      await posting.save();
+      const postingOne = await Board.findOne().sort({'_id': -1});
+    res.status(201).json({
+      Message: '게시글 등록에 성공했습니다', 
+      result: postingOne
     });
   } catch (err) {
       res.status(500).send({ 
