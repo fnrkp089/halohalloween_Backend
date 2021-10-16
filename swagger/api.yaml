@@ -7,7 +7,7 @@ servers:
   # Added by API Auto Mocking Plugin 
   # Added by API Auto Mocking Plugin 
   - description: mini2
-    url: '3.36.130.184'
+    url: ''
 paths:
   /user/register:
     post:
