@@ -5,7 +5,8 @@ const User = require('../schemas/user');
 const jwt = require('jsonwebtoken');
 const authMiddleWare = require('../middlewares/auth-middleware');
 
-require('dotenv').config();
+require('dotenv').config(); //보안을 위함.
+//생성한 .env파일을 사용하기 위해 선언한다. process.env.선언한 변수이름
 
 userRouter.post('/register', async(req, res) => {
     const { userEmail, userNickname } = req.body;

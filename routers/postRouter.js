@@ -51,7 +51,10 @@ Router.post('/posting', authMiddleWare, async(req, res) => {
       postingDate, postingComment, postingImgUrl, postingSeen:0,
       postingDel});
       await posting.save();
-      const postingOne = await Board.findOne().sort({'_id': -1});
+      const postingOne = await Board.findOne().sort({'_id': -1});// 새로추가됨
+      //리덕스의 상태를 변화시키기 위해 메세지만 보내는 것이 아닌 방금 등록한 글을 바로 보내주어
+      //리덕스에 추가시켜준다. 따라서 화면에 그려지는 부분은 리덕스가 변화되었기 때문에
+      //새로 갱신되게 된다.
     res.status(201).json({
       Message: '게시글 등록에 성공했습니다', 
       result: postingOne

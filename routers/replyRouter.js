@@ -53,9 +53,20 @@ Router.patch('/replyDelete', authMiddleWare, async(req, res) => {
 
 Router.patch('/replyModify', authMiddleWare, async(req, res) => {
     const { replyID, replyComment } = req.body
-    await Reply.updateOne({ replyID }, {
+    //const replyID = req.body.replyID
+    //req.body = {/......데이터데이터데이터.... replyID: 클라이언트로 받은 아이디.}.
+    //객체 형태로 넘어오기 때문에 구조분해 할당을 해버린다.
+    //아마 자바스크립트 객체 부분하고, 구조분해할당과 javascript...->기초적인 부분을 봐주세요
+    //모던 자바 스크립트 추천.
+    await Reply.updateOne({ _id: replyID }, {
         $set: {
            replyComment
+           //왜 어떤거는 _id:replyID로하고 어떤거는 그냥 클라이언트로 받은 아이디를 할당과같은걸 하지않고 넣엇는데 작동하는가?
+
+           //그것은 데이터베이스 안에있는 특정 필드의 이름과
+           //클라이언트로 받은 데이터의 변수 이름이 같기때문에 그것을 인식해서 같은 필드라 생각하여,
+           //만일 replyComment를 클라이언트로 부터 받앗고, 데이터베이스에도 replyCommnet가 존재할경우,
+           //데이터베이스의 replyComment에 해당 값이 들어간다. => 구조분해 할당 덕분이다.
         },
     });
     res.status(201).send({ result: 'success' });
