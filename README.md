@@ -57,8 +57,9 @@
 
 
 ## 📋 ERD
-
-![ERD](./readme_images/erd2.png)
+![유저](https://user-images.githubusercontent.com/44608012/146629134-6b17d7cc-404f-4588-9806-ed820e190240.png)
+![게시판](https://user-images.githubusercontent.com/44608012/146629136-aa622953-1c06-4d54-b339-901dc908e196.png)
+![댓글](https://user-images.githubusercontent.com/44608012/146629137-8c45b783-6b18-471c-a91c-f94d4c237cfc.png)
 
 
 
